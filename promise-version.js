@@ -1,8 +1,9 @@
 const url = "https://jservice.xyz/api/random-clue";
 
-export default function getCluePromise() {
+
+function getCluePromise() {
  return fetch(url).then((res) => {
-    console.log(res);
+    // console.log(res);
     if (!res.ok) {
       throw new Error(res.status);
     } else {
@@ -17,3 +18,7 @@ export default function getCluePromise() {
 document.addEventListener("DOMContentLoaded", () => {
   getCluePromise();
 });
+
+
+
+export default getCluePromise;
