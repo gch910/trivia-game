@@ -42,8 +42,6 @@ body {
 }
 
 
-
-
-
-
-
+.is-hidden {
+    display: none;
+}

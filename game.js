@@ -1,5 +1,7 @@
 import getCluePromise from "./promise-version.js";
 import getClueAsync from "./async-await-version.js";
+import getClueCallback from "./callback.js";
+
 
 //html selection:
 const usePromiseButton = document.getElementById("use-promise");
@@ -9,6 +11,12 @@ const the_answer = document.getElementById("answer");
 const the_value = document.getElementById("value");
 const categoryTitle = document.getElementById("category-title");
 const invalidCount = document.getElementById("invalid-count");
+const useCallbackButton = document.getElementById("use-callback");
+const checkResponse = document.getElementById("check-response");
+const playerResponse = document.getElementById("player-response");
+const their_score = document.getElementById("score");
+
+
 
 function updateValues(clueObj) {
   the_question.innerHTML = clueObj.question;
@@ -38,23 +46,34 @@ useAsyncButton.addEventListener("click", async () => {
   }
 });
 
-//   the_question.innerHTML = clueObj.question;
-//   the_answer.innerHTML = clueObj.answer;
-//   the_value.innerHTML = clueObj.value;
-//   categoryTitle.innerHTML = clueObj.category.title;
 
-//   if (invalidCount.invalid_count && invalidCount.invalid_count > 0) {
-//     invalidCount.innerHTML = "invalid";
-//   } else {
-//     invalidCount.innerHTML = "valid";
-//   }
 
- // the_question.innerHTML = result.question;
-    // the_answer.innerHTML = result.answer;
-    // the_value.innerHTML = result.value;
-    // categoryTitle.innerHTML = result.category.title;
-    // if (invalidCount.invalid_count && invalidCount.invalid_count > 0) {
-    //     invalidCount.innerHTML = "invalid";
-    //   } else {
-    //     invalidCount.innerHTML = "valid";
-    //   }
+
+
+useCallbackButton.addEventListener("click", () => {
+
+  getClueCallback(function(error, clue){
+    if(error !== null) return console.error(error);
+    updateValues(clue);
+  });
+
+});
+
+
+
+
+
+checkResponse.addEventListener("click", () => {
+  let numberVal = Number(the_value.innerHTML);
+  let numberScore = Number(their_score.innerHTML);
+
+  if (playerResponse.value === the_answer.innerHTML){
+    their_score.innerHTML = `${numberScore + numberVal}`;
+  } else {
+    their_score.innerHTML = `${numberScore - numberVal}`;
+  }
+
+  the_answer.classList.remove("is-hidden");
+  checkResponse.classList.add("is-hidden");
+
+});
